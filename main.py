@@ -1,24 +1,27 @@
-import configparser
 import os
-import time
-import threading
+import shutil
+import sys
+from resources.registry_manager import *
+from resources.configuration_manager import *
 
 software_version = 1.0
+software_directory = 'C:\\Program Files\\dirLocker'
 default_secured_directory = 'secured_dir'
 
-def update_configuration():
-    global locale, secured_directory, configuration
-    while True:
-        time.sleep(10)
-        configuration = configparser.ConfigParser()
-        if 'configuration.ini' not in os.listdir('.'):
-            configuration['CONFIGURATION'] = {'secured_directory': default_secured_directory,
-                                              'locale': 'en'}
-            with open('configuration.ini', 'w') as configuration_file:
-                configuration.write(configuration_file)
-        else:
-            configuration.read('configuration.ini')
-            locale = configuration['CONFIGURATION']['locale']
-            secured_directory = configuration['CONFIGURATION']['secured_directory']
+if sys.argv[0] != (software_directory + '\\' + sys.argv[0].split('\\')[-1]):
+    try:
+        shutil.copyfile(sys.argv[0], software_directory + '\\' + sys.argv[0].split('\\')[-1])
+        os.system('start ' + software_directory + '\\' + sys.argv[0].split('\\')[-1])
+        sys.exit(0)
+    except:
+        try:
+            os.mkdir(software_directory)
+            shutil.copyfile(sys.argv[0], software_directory + '\\' + sys.argv[0].split('\\')[-1])
+            os.system('start ' + software_directory + '\\' + sys.argv[0].split('\\')[-1])
+            sys.exit(0)
+        except Exception as err:
+            print(err)
+            sys.exit(0)
 
-threading.Thread(target=update_configuration).start()
+configuration_initialize(software_directory + '\\' + default_secured_directory)
+registry_append()
