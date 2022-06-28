@@ -3,10 +3,10 @@
 # dirLocker-python
 
 # ToDo
-- directory automatic encryption
-- files decryption
-- gui for controlling the software
-- changeable locales
-- registry entry for system startup launch
-- intuitive menu in file explorer
-- system tray menu
+❌ directory automatic encryption
+❌ files decryption
+❌ gui for controlling the software
+❌ changeable locales
+❌ registry entry for system startup launch
+❌ intuitive menu in file explorer
+❌ system tray menu
