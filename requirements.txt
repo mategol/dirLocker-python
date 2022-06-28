@@ -1,0 +1,14 @@
+pyautogui
+os
+win32com.client
+sys
+random
+shutil
+time
+getpass
+zipfile
+configparser
+threading
+winreg
+hashlib
+tkinter
