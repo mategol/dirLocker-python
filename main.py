@@ -10,7 +10,7 @@ from resources.file_manager import *
 from resources.encryption import *
 
 software_version = 1.0
-software_directory = 'C:\\Program Files\\dirLocker'
+software_directory = 'C:\\Users\\' + getpass.getuser() + '\\dirLocker'
 default_secured_directory = 'secured_dir'
 encryption_key = 'zaq1@WSX'     # Change here
 
@@ -52,11 +52,12 @@ if len(sys.argv) == 1:
             if element[-6:] != '.dlock' and os.path.isfile(get_secured_directory() + '\\' + element):
                 try:
                     filename = generate_name(element, False)
-                    encrypt_file(get_secured_directory() + '\\' + element, get_secured_directory() + '\\' + filename, encryption_key)
+                    encrypt_file(get_secured_directory() + '\\' + element, get_secured_directory() + '\\' + filename + '.dlock', encryption_key)
                     secure_delete(get_secured_directory() + '\\' + element, 5)
                     break
                 except Exception as error:
                     pyautogui.alert(error, 'Error occurred!')
                     pass
-                
-                
+            elif os.path.isdir(get_secured_directory() + '\\' + element):
+                zip(get_secured_directory() + '\\' + element, get_secured_directory() + '\\' + element + '.directory')
+                shutil.rmtree(get_secured_directory() + '\\' + element)
