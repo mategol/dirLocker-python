@@ -10,3 +10,4 @@
 ❌ registry entry for system startup launch<br />
 ❌ intuitive menu in file explorer<br />
 ❌ system tray menu
+❌ file protection (make file undeletable even by Admin (using file by threads in background))
