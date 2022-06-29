@@ -1,5 +1,6 @@
 from win32com.client import Dispatch
 import os
+import zipfile
 from resources.configuration_manager import *
 
 def generate_name(input_name, is_directory):
@@ -22,6 +23,21 @@ def generate_name(input_name, is_directory):
                 continue
     else:
         return input_name + additional_extension
+
+def unzip(path_to_zip_file, directory_to_extract_to):
+    with zipfile.ZipFile(path_to_zip_file, 'r') as zip_ref:
+        zip_ref.extractall(directory_to_extract_to)
+
+def zip(source_dir, output_filename):
+    relroot = os.path.abspath(os.path.join(source_dir, os.pardir))
+    with zipfile.ZipFile(output_filename, "w", zipfile.ZIP_DEFLATED) as zip:
+        for root, dirs, files in os.walk(source_dir):
+            zip.write(root, os.path.relpath(root, relroot))
+            for file in files:
+                filename = os.path.join(root, file)
+                if os.path.isfile(filename):
+                    arcname = os.path.join(os.path.relpath(root, relroot), file)
+                    zip.write(filename, arcname)
 
 def create_shortcut(path, target='', wDir='', icon=''):    
     shell = Dispatch('WScript.Shell')
