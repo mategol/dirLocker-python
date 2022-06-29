@@ -9,5 +9,5 @@
 ❌ changeable locales<br />
 ❌ registry entry for system startup launch<br />
 ❌ intuitive menu in file explorer<br />
-❌ system tray menu
+❌ system tray menu<br />
 ❌ file protection (make file undeletable even by Admin (using file by threads in background))
