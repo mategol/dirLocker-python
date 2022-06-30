@@ -1,11 +1,21 @@
 from win32com.client import Dispatch
 import os
+from tkinter import Tk, filedialog
 import zipfile
 from resources.configuration_manager import *
 
+
+def get_manual_path():
+    root = Tk()
+    root.withdraw()
+    root.attributes('-topmost', True)
+    open_dir = filedialog.askdirectory()
+    root.destroy()
+    return open_dir
+
 def generate_name(input_name, is_directory):
     extension = input_name.split('.')[-1]
-    file_name = input_name.split('.')[:-1]
+    file_name = '.'.join(input_name.split('.')[:-1])
 
     if is_directory:
         additional_extension = '.directory'
@@ -18,7 +28,7 @@ def generate_name(input_name, is_directory):
         while True:
             loop_number += 1
             if file_name + '_' + str(loop_number) + extension + additional_extension + '.dlock' not in list_of_encryption_directory:
-                return file_name + '_' + str(loop_number) + extension + additional_extension
+                return file_name + '_' + str(loop_number) + '.' + extension + additional_extension
             else:
                 continue
     else:
