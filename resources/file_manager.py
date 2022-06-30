@@ -3,7 +3,19 @@ import os
 from tkinter import Tk, filedialog
 import zipfile
 from resources.configuration_manager import *
+from resources.encryption import *
 
+
+def open_file(target_file, encryption_key):
+    if os.path.isfile(target_file) and target_file[:-6] == '.dlock':
+        path_to_paste = get_manual_path()
+        if path_to_paste != '':
+            filename = target_file.split('\\')[-1]
+            decrypt_file(target_file, path_to_paste + '\\' + filename[:-6], encryption_key)
+            secure_delete(target_file, 1)
+            if target_file.split('.')[-2] == 'directory':
+                unzip(path_to_paste + '\\' + filename, path_to_paste)
+                secure_delete(path_to_paste + '\\' + filename)
 
 def get_manual_path():
     root = Tk()
