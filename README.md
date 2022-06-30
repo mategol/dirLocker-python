@@ -4,7 +4,7 @@
 
 # ToDo
 ✅ directory automatic encryption<br />
-❌ files decryption<br />
+✅ files decryption<br />
 ❌ gui for controlling the software<br />
 ❌ changeable locales<br />
 ✅ registry entry for system startup launch<br />
