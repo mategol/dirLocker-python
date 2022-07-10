@@ -2,11 +2,13 @@ import os
 import shutil
 import getpass
 import sys
+import time
 import psutil
 import pyautogui
 from resources.registry_manager import *
 from resources.configuration_manager import *
 from resources.file_manager import *
+from resources.gui import *
 from resources.encryption import *
 
 software_version = 1.0
@@ -61,3 +63,16 @@ if len(sys.argv) == 1:
             elif os.path.isdir(get_secured_directory() + '\\' + element):
                 zip(get_secured_directory() + '\\' + element, get_secured_directory() + '\\' + element + '.directory')
                 shutil.rmtree(get_secured_directory() + '\\' + element)
+
+elif len(sys.argv) == 2:
+    if sys.argv[1] == 'gui':
+        launch_gui()
+    else:
+        open_file(sys.argv[1], encryption_key)
+
+elif len(sys.argv) == 3:
+    if sys.argv[2] == 'delete':
+        if os.path.isfile(sys.argv[1]):
+            secure_delete(sys.argv[1])
+        else:
+            shutil.rmtree(sys.argv[1])
