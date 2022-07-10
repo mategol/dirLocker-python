@@ -73,6 +73,13 @@ elif len(sys.argv) == 2:
 elif len(sys.argv) == 3:
     if sys.argv[2] == 'delete':
         if os.path.isfile(sys.argv[1]):
-            secure_delete(sys.argv[1])
+            secure_delete(sys.argv[1], 5)
         else:
             shutil.rmtree(sys.argv[1])
+
+    elif sys.argv[2] == 'move':
+        if os.path.isfile(sys.argv[1]):
+            shutil.copy2(sys.argv[1], secured_directory)
+            secure_delete(sys.argv[1], 5)
+        else:
+            shutil.copytree(sys.argv[1], secured_directory)
